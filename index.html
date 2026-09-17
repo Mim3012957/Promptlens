@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PromptLens — pre-generation risk scan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <svg class="mark" viewBox="0 0 40 40" fill="none">
+    <circle cx="20" cy="20" r="17" stroke="#F2B84B" stroke-width="2"/>
+    <circle cx="20" cy="20" r="9" stroke="#F2B84B" stroke-width="2"/>
+    <path d="M20 3 L20 11 M20 29 L20 37 M3 20 L11 20 M29 20 L37 20" stroke="#F2B84B" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+  <div class="brand">
+    <h1>PromptLens</h1>
+    <p>Pre-generation risk scan for AI coding prompts</p>
+  </div>
+</header>
+
+<main>
+  <section class="scan-panel">
+    <label for="promptInput">Prompt you're about to send to an AI code generator</label>
+    <textarea id="promptInput" placeholder="e.g. Build me a function that handles user data properly and follows best practices..."></textarea>
+    <div class="example-row">
+      <span class="example-label">Try an example:</span>
+      <button type="button" class="ghost-btn" id="loadRisky">Risky prompt</button>
+      <button type="button" class="ghost-btn" id="loadClean">Clean prompt</button>
+    </div>
+    <div class="scan-row">
+      <span class="char-count" id="charCount">0 characters</span>
+      <button id="scanBtn" disabled>Scan prompt</button>
+    </div>
+  </section>
+
+  <section class="result-panel" id="resultPanel" hidden>
+    <div class="gauge-block">
+      <div class="gauge-wrap">
+        <svg viewBox="0 0 140 140">
+          <circle class="gauge-track" cx="70" cy="70" r="60"/>
+          <circle class="gauge-fill" id="gaugeFill" cx="70" cy="70" r="60"
+                  stroke-dasharray="376.99" stroke-dashoffset="376.99" stroke="#4FD1A5"/>
+        </svg>
+        <div class="gauge-score" id="gaugeScore">0</div>
+      </div>
+      <div class="gauge-caption">
+        <h2 id="gaugeLabel">In Focus</h2>
+        <p id="gaugeSummary">Scan a prompt to see how likely it is to lead an AI code generator toward hallucinated output.</p>
+      </div>
+    </div>
+
+    <div class="flags" id="flagsList"></div>
+  </section>
+</main>
+
+<footer>
+  Runs entirely in your browser — no prompt text is sent anywhere or stored. Flags are heuristic, not a
+  correctness guarantee: a clean scan doesn't mean the generated code will be correct, and a flagged prompt
+  can still produce good output. Treat it as a second pair of eyes before you hit send.
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
